@@ -262,29 +262,10 @@
   var canHover = matchMedia("(hover: hover)").matches;
   var videos = [].slice.call(document.querySelectorAll("video"));
   var cards = [].slice.call(document.querySelectorAll(".card"));
-  // ?debug in the address shows what each clip is doing (temporary, for phone testing)
-  var dbg = /[?&]debug/.test(location.search) ? document.createElement("pre") : null;
-  function name(v){ return (v.getAttribute("src") || "").replace("assets/", "").replace(".mp4", ""); }
-  function log(msg){ if (!dbg) return; dbg.textContent += msg + "\n"; dbg.scrollTop = dbg.scrollHeight; }
-  if (dbg) {
-    dbg.style.cssText = "position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;margin:0;padding:8px;z-index:99;background:#000;color:#0f0;font:10px/1.35 ui-monospace,Menlo,monospace;white-space:pre-wrap";
-    document.body.appendChild(dbg);
-    log("hover:" + canHover + " reducedMotion:" + still + " IO:" + ("IntersectionObserver" in window) + " w:" + innerWidth);
-    log(navigator.userAgent.replace(/^Mozilla\/5.0 /, ""));
-    videos.forEach(function(v){
-      ["loadedmetadata", "canplay", "playing", "pause", "waiting", "stalled", "suspend", "error"].forEach(function(ev){
-        v.addEventListener(ev, function(){ log(name(v) + " " + ev + " rs=" + v.readyState + (v.error ? " err=" + v.error.code : "")); });
-      });
-    });
-  }
   function play(v){
     v.muted = true;
     var p = v.play();
-    log(name(v) + " play() called, paused=" + v.paused + " rs=" + v.readyState);
-    if (p && p.then) p.then(function(){ log(name(v) + " play OK"); }, function(e){
-      log(name(v) + " play REFUSED: " + e.name + " / " + e.message);
-      if (e.name === "NotAllowedError") v.controls = true;   // autoplay blocked by the device: show a play button
-    });
+    if (p && p.catch) p.catch(function(e){ if (e.name === "NotAllowedError") v.controls = true; });   // autoplay blocked by the device: show a play button
   }
   if (still || !("IntersectionObserver" in window)) {
     videos.forEach(function(v){ v.controls = true; });
