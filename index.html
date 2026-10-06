@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-p="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joana Mizrahi</title>
+<meta name="description" content="Joana Mizrahi, M.S. student in Electrical Engineering at Stanford. Research on world models for outdoor robot navigation at the Stanford Robotics Center.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Two palettes (ink, night). Each section owns one accent colour. */
+  :root{
+    --paper:#FFFFFF; --card:#FFFFFF; --ink:#111111; --ink-2:#4F4F4F; --faint:#9A9A9A; --rule:#E8E8E8;
+    --c-hello:#4E8A00; --c-research:#1455D6; --c-projects:#D62B70; --c-elsewhere:#E87B00; --hl:#DDF3A6;
+    --sans:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --k1:#E87B00; --k2:#D62B70; --k3:#1455D6; --k4:#4E8A00; --k5:#7A2BD6;
+    --here:var(--c-hello);
+  }
+  html[data-p="dark"]{
+    --paper:#121314; --card:#1B1C1E; --ink:#ECEAE4; --ink-2:#B4B1A9; --faint:#7E7C76; --rule:#2D2E31;
+    --c-hello:#C9F25E; --c-research:#7FA6FF; --c-projects:#FF8FB8; --c-elsewhere:#FFAE4D; --hl:rgba(201,242,94,.32);
+    --k1:#FFAE4D; --k2:#FF8FB8; --k3:#7FA6FF; --k4:#C9F25E; --k5:#C3A0FF;
+  }
+  #hello{--secc:var(--c-hello)} #research{--secc:var(--c-research)} #projects{--secc:var(--c-projects)} #elsewhere{--secc:var(--c-elsewhere)}
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:28px}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;
+       -webkit-font-smoothing:antialiased;padding-bottom:80px;transition:background .3s,color .3s}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+  /* links: the underline draws itself in the section's colour */
+  a{color:inherit;text-decoration:none;background:linear-gradient(var(--secc),var(--secc)) 0 100%/0 1.5px no-repeat;
+    transition:background-size .28s ease,color .28s ease;padding-bottom:1px}
+  a:hover{color:var(--secc);background-size:100% 1.5px}
+  p a,.out a,.links a{box-shadow:inset 0 -1.5px 0 var(--rule)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--secc,var(--ink));outline-offset:3px;border-radius:2px}
+
+  /* hello */
+  .hello{padding-top:clamp(56px,11vh,116px)}
+  .name{font-family:"Inter Tight",var(--sans);font-weight:600;font-size:clamp(38px,6.6vw,58px);line-height:1.05;letter-spacing:-.035em}
+  .name span{background:linear-gradient(transparent 60%,var(--hl) 60%);padding:0 .08em;margin:0 -.08em}
+  .hello p.sub{font-family:var(--mono);font-size:12.5px;color:var(--faint);margin-top:16px;max-width:none}
+  .hello p{max-width:58ch;margin-top:26px}
+  .hello p + p{margin-top:12px}
+  .hello p.aside{color:var(--ink-2)}
+  .hello p.status{display:flex;align-items:center;gap:10px;margin-top:24px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);max-width:none}
+  .status i{width:8px;height:8px;border-radius:50%;background:var(--secc);flex:none}
+
+  /* sections */
+  section{padding-top:clamp(60px,9vh,96px)}
+  h2{font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px;color:var(--secc)}
+  h2::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--secc);flex:none}
+  h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+  .meta{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  h3{font-size:16.5px;font-weight:600;line-height:1.35}
+  .links{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  .links span{color:var(--faint)}
+
+  /* research */
+  .work{margin-top:30px}
+  .work + .work{margin-top:52px}
+  .work .head{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .work .head .meta{color:var(--secc)}
+  .work p{margin-top:8px;max-width:64ch;color:var(--ink-2);font-size:15px}
+  figure{margin-top:16px}
+  .frame{background:var(--card);border:1px solid var(--rule);border-radius:4px;overflow:hidden;line-height:0}
+  .frame video,.frame img{width:100%;height:auto;display:block}
+  .pair{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+  figcaption{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:8px}
+
+  /* projects */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:38px 26px;margin-top:30px}
+  .card{position:relative}
+  .grid .card:nth-child(5n+1),.also li:nth-child(5n+5){--secc:var(--k1)} .grid .card:nth-child(5n+2),.also li:nth-child(5n+1){--secc:var(--k2)}
+  .grid .card:nth-child(5n+3),.also li:nth-child(5n+2){--secc:var(--k3)} .grid .card:nth-child(5n+4),.also li:nth-child(5n+3){--secc:var(--k4)}
+  .grid .card:nth-child(5n+5),.also li:nth-child(5n+4){--secc:var(--k5)}
+  .also li b{transition:color .3s} .also li:hover b{color:var(--secc)}
+  .card .frame{aspect-ratio:3/2}
+  .card .frame video,.card .frame img{height:100%;object-fit:cover;filter:grayscale(1);
+        transition:filter .55s ease,transform .9s cubic-bezier(.2,.6,.2,1)}
+  .card .frame img.fit{object-fit:contain;background:#fff}
+  .card .frame img.keep{filter:grayscale(1) brightness(1.7)}
+  .card:hover .frame video,.card:hover .frame img{filter:none;transform:scale(1.045)}
+  .card .frame{transition:border-color .4s}
+  .card:hover .frame{border-color:var(--secc)}
+  .card .meta{display:block;margin-top:13px;transition:color .4s}
+  .card:hover .meta{color:var(--secc)}
+  .card h3{margin-top:3px}
+  .card h3 a::after{content:"";position:absolute;inset:0}          /* the whole card opens the main link */
+  .card h3 .go{display:inline-block;margin-left:6px;opacity:0;transform:translateX(-5px);transition:opacity .3s,transform .3s;color:var(--secc)}
+  .card:hover h3 .go{opacity:1;transform:none}
+  .card p{font-size:14.5px;line-height:1.5;margin-top:5px;color:var(--ink-2)}
+  .card .links{position:relative;z-index:1}
+  @media (hover:none){.card .frame video,.card .frame img{filter:none}}
+
+  .also{margin-top:46px;border-top:1px solid var(--rule)}
+  .also li{list-style:none;display:grid;grid-template-columns:1fr auto;gap:2px 20px;padding:13px 0;border-bottom:1px solid var(--rule);font-size:14.5px}
+  .also b{font-weight:600;font-size:15.5px}
+  .also .d{color:var(--ink-2);grid-column:1}
+  .also .meta{grid-row:1;grid-column:2;text-align:right;white-space:nowrap;padding-top:3px}
+  .also .links{grid-column:1;margin-top:2px}
+
+  /* elsewhere */
+  .out{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:22px;font-size:17px;font-weight:500}
+  footer{margin-top:64px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+
+  /* section names down the right side, on wide screens */
+  #rail{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:10;display:none;font-family:var(--mono);font-size:11.5px;padding-left:14px;border-left:1.5px solid var(--rule)}
+  #rail a{display:block;padding:5px 0;color:var(--faint);background:none;box-shadow:none;transition:color .3s}
+  #rail a.here,#rail a:hover{color:var(--c)}
+  #rail i{position:absolute;left:-2.5px;top:0;width:3.5px;height:22px;border-radius:2px;background:var(--here);transition:transform .25s ease,background .4s}
+  @media (min-width:1000px){#rail{display:block}}
+  #mode{position:fixed;top:14px;right:14px;z-index:20;font:11px var(--mono);color:var(--faint);background:none;border:1px solid var(--rule);
+        border-radius:20px;padding:5px 11px;cursor:pointer;transition:color .2s,border-color .2s}
+  #mode:hover{color:var(--ink);border-color:var(--faint)}
+
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr}
+    .also li{grid-template-columns:1fr}
+    .also .meta{grid-row:auto;grid-column:1;text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important}}
+</style>
+</head>
+<body>
+
+<button id="mode" type="button" aria-label="Switch between light and dark">dark</button>
+
+<nav id="rail" aria-label="Sections"><i></i></nav>
+
+<div class="wrap">
+
+  <header class="hello" id="hello" data-stop="hello">
+    <h1 class="name"><span>joana mizrahi</span></h1>
+    <p class="sub">MS Electrical Engineering, Stanford · Control &amp; Optimization · Stanford Robotics Center</p>
+
+    <p>Hi! I'm Joana. I'm a Master's student in Electrical Engineering at Stanford, on the control &amp; optimization track, and I do research at the Stanford Robotics Center on world models for outdoor robot navigation.</p>
+    <p class="aside">I did my bachelor's in microengineering at EPFL in Switzerland, with an exchange year at Carnegie Mellon.</p>
+    <p class="status"><i></i><span>looking for a full-time robotics role starting summer 2027 · <a href="mailto:joana.mizrahi@gmail.com">email me</a></span></p>
+  </header>
+
+  <section id="research" data-stop="research">
+    <h2>research</h2>
+
+    <article class="work">
+      <div class="head"><h3>WorldNav: How Can World Models Support Outdoor Navigation Policy Learning?</h3><span class="meta">2026</span></div>
+      <p>On-policy RL for outdoor navigation inside a generative world model built from a single walkthrough video. Two parts: evaluation (terrain semantics generated with each image and used as the reward) and exploration (keeping the policy where the generated world can be trusted).</p>
+      <p>With Jing Liang, advised by Marco Pavone.</p>
+      <figure>
+        <div class="pair">
+          <div class="frame"><video src="assets/worldnav-walk.mp4" poster="assets/worldnav-walk.jpg" muted loop playsinline preload="none" aria-label="The real recorded walk through the scene"></video></div>
+          <div class="frame"><video src="assets/worldnav-eval.mp4" poster="assets/worldnav-eval.jpg" muted loop playsinline preload="none" aria-label="The same place generated by the world model with the policy driving around the lawn, next to the semantic labels the reward reads"></video></div>
+        </div>
+        <figcaption>the recorded walk · the same place generated by the world model, with the policy driving around the lawn · the labels the reward reads</figcaption>
+        <div class="frame" style="margin-top:14px"><video src="assets/worldnav-robot.mp4" poster="assets/worldnav-robot.jpg" muted loop playsinline preload="none" aria-label="The Unitree Go2W running the policy outdoors on a corner"></video></div>
+        <figcaption>corner test on the real robot</figcaption>
+      </figure>
+      <div class="links"><span>paper in preparation</span></div>
+    </article>
+
+    <article class="work">
+      <div class="head"><h3>Voice task planner and human following, Unitree Go2W</h3><span class="meta">2026</span></div>
+      <p>A real-time behavior-tree task planner with a voice interface: it turns a spoken request into the sequence of behaviors the robot carries out, and alerts about hazards with open-vocabulary detection.</p>
+      <figure>
+        <div class="frame"><video src="assets/following.mp4" poster="assets/following.jpg" muted loop playsinline preload="none" aria-label="The Go2W quadruped following a person across a room"></video></div>
+      </figure>
+    </article>
+  </section>
+
+  <section id="projects" data-stop="projects">
+    <h2>projects</h2>
+
+    <div class="grid">
+      <article class="card">
+        <div class="frame"><video src="assets/stradibot.mp4" poster="assets/stradibot.jpg" muted loop playsinline preload="none" aria-label="A robot arm bowing a violin while a person plays notes on a keyboard"></video></div>
+        <span class="meta">CS 225A · Stanford · 2026</span>
+        <h3><a href="docs/stradibot-report.pdf">Stradibot</a><span class="go" aria-hidden="true">→</span></h3>
+        <p>A Flexiv Rizon arm that plays the violin. Operational space control holds the bow's force on the string while it moves along it; an Arduino drives the solenoids that press the notes.</p>
+        <div class="links"><a href="https://www.youtube.com/watch?v=Xr3WuakZd-c">video</a><a href="docs/stradibot-slides.pdf">slides</a><a href="docs/stradibot-report.pdf">report</a><a href="https://github.com/Anna-Masset/stradibot">code</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame"><img src="assets/tracking.jpg" alt="A KITTI street scene with the tracked van outlined by its estimated 3D box" loading="lazy"></div>
+        <span class="meta">AA 273 · Stanford · 2026</span>
+        <h3><a href="docs/vehicle-tracking-report.pdf">Vision-Based Vehicle Tracking using Particle Filtering</a><span class="go" aria-hidden="true">→</span></h3>
+        <p>A particle filter on KITTI with vision-only measurements, comparing likelihood models.</p>
+        <div class="links"><a href="docs/vehicle-tracking-report.pdf">report</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame"><img class="keep" src="assets/stereo.jpg" alt="Two disparity maps of the same street: the noisy winner-takes-all estimate above, the regularized result below" loading="lazy"></div>
+        <span class="meta">EE 367 · Stanford · 2026</span>
+        <h3><a href="docs/stereo-depth-report.pdf">Stereo Depth Estimation with Learned Regularizers</a><span class="go" aria-hidden="true">→</span></h3>
+        <p>Stereo matching as an inverse problem, with a learned denoiser as the prior.</p>
+        <div class="links"><a href="docs/stereo-depth-report.pdf">report</a><a href="docs/stereo-depth-poster.pdf">poster</a><a href="https://github.com/joanamizrahi/ee367-stereo-matching">code</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame"><img class="fit" src="assets/grasp.jpg" alt="A bottle point cloud with successful grasps drawn in green and failed grasps in red" loading="lazy"></div>
+        <span class="meta">CS 230 · Stanford · 2025</span>
+        <h3><a href="docs/grasp-prediction-poster.pdf">Learning Grasp Success Prediction from 3D Point Clouds</a><span class="go" aria-hidden="true">→</span></h3>
+        <p>PointNet-based prediction of whether a grasp will succeed, from a point cloud and a gripper pose.</p>
+        <div class="links"><a href="docs/grasp-prediction-poster.pdf">poster</a><a href="https://github.com/joanamizrahi/cs230-grasp-prediction">code</a></div>
+      </article>
+    </div>
+
+    <ul class="also">
+      <li><b>Wizardry Under Uncertainty</b><span class="meta">CS 238 · Stanford · 2025</span><span class="d">Monte Carlo tree search agent for the card game Wizard.</span><span class="links"><a href="docs/wizard-report.pdf">report</a><a href="https://github.com/joanamizrahi/cs238-wizard-ai">code</a></span></li>
+      <li><b>Piezoelectric-actuated MEMS Dual-axis Micromirror</b><span class="meta">18-614 · Carnegie Mellon · 2024</span><span class="d">Design and simulation.</span><span class="links"><a href="docs/mems-micromirror-paper.pdf">paper</a></span></li>
+      <li><b>Marine chronometer oscillator</b><span class="meta">MICRO-201 · EPFL · 2024</span><span class="d">Flexure-based oscillator resistant to accelerations.</span><span class="links"><a href="docs/marine-chronometer-report.pdf">report (French)</a></span></li>
+      <li><b>Domino dispensing machine</b><span class="meta">ME-102/107 · EPFL · 2023</span><span class="d">Mechanical design project.</span><span class="links"><a href="docs/domino-machine-report.pdf">report (French)</a></span></li>
+    </ul>
+  </section>
+
+  <section id="elsewhere" data-stop="elsewhere">
+    <h2>elsewhere</h2>
+    <div class="out">
+      <a href="mailto:joana.mizrahi@gmail.com">email</a>
+      <a href="https://github.com/joanamizrahi">github</a>
+      <a href="https://www.linkedin.com/in/joana-mizrahi-336620300">linkedin</a>
+      <a href="docs/joana-mizrahi-resume.pdf">cv</a>
+    </div>
+    <footer>stanford, california · 2026</footer>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  // light / dark
+  var btn = document.getElementById("mode"), root = document.documentElement, saved = null;
+  try { saved = localStorage.getItem("mode"); } catch (e) {}
+  function mode(p){ root.dataset.p = p; btn.textContent = p === "dark" ? "light" : "dark"; try { localStorage.setItem("mode", p); } catch (e) {} }
+  var m = new URLSearchParams(location.search).get("p") || saved;
+  mode(m === "dark" || m === "light" ? m : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  btn.addEventListener("click", function(){ mode(root.dataset.p === "dark" ? "light" : "dark"); });
+
+  // side rail: one link per section, with a marker on the one in view
+  var secs = [].slice.call(document.querySelectorAll("[data-stop]"));
+  var rail = document.getElementById("rail"), mark = rail.querySelector("i");
+  var links = secs.map(function(sec){
+    var a = document.createElement("a"), name = sec.dataset.stop;
+    a.href = "#" + sec.id; a.textContent = name === "hello" ? "top" : name;
+    a.style.setProperty("--c", "var(--c-" + name + ")"); rail.appendChild(a); return a;
+  });
+  function step(){
+    var line = window.scrollY + window.innerHeight * 0.35, here = 0;
+    secs.forEach(function(sec, i){ if (sec.offsetTop <= line) here = i; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) here = secs.length - 1;
+    rail.style.setProperty("--here", "var(--c-" + secs[here].dataset.stop + ")");
+    links.forEach(function(a, i){ a.classList.toggle("here", i === here); });
+    mark.style.transform = "translateY(" + (links[here].offsetTop + 2) + "px)";
+  }
+  var ticking = false;
+  window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ step(); ticking = false; }); } }, {passive: true});
+  window.addEventListener("resize", step); window.addEventListener("load", step); step();
+
+  // research clips play while on screen; project clips play while you point at them
+  var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canHover = matchMedia("(hover: hover)").matches;
+  function play(v){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+  var auto = [].slice.call(document.querySelectorAll(canHover ? ".work video" : "video"));
+  if (still) {
+    [].forEach.call(document.querySelectorAll("video"), function(v){ v.controls = true; });
+  } else {
+    if ("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) play(e.target); else e.target.pause(); });
+      }, {threshold: 0.35});
+      auto.forEach(function(v){ io.observe(v); });
+    }
+    if (canHover) [].forEach.call(document.querySelectorAll(".card"), function(card){
+      var v = card.querySelector("video"); if (!v) return;
+      card.addEventListener("mouseenter", function(){ play(v); });
+      card.addEventListener("mouseleave", function(){ v.pause(); });
+    });
+  }
+})();
+</script>
+</body>
+</html>
